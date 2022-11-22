@@ -1,38 +1,59 @@
 using NUnit.Framework;
-using System.Globalization;
+using OpenQA.Selenium;
+using System.Security.Cryptography.X509Certificates;
 using TestProject1.Driver;
 using TestProject1.Page;
+using WebDriver = TestProject1.Driver.WebDriver;
 
 namespace TestProject1
 {
     public class Tests
     {
-        private LoginPage _loginPage;
-        private HomePage _homePage;
+        private LoginPage loginPage;
+        private HomePage homePage;
+
+        
 
         [SetUp]
         public void BeforeScenario()
         {
             WebDriver.Initialize();
-            _loginPage = new LoginPage();
-            _homePage = new HomePage();
+            loginPage = new LoginPage();
+            homePage = new HomePage();  
         }
 
         [TearDown]
-        public void AfterScenario() => WebDriver.CleanUp();
+        public void AfterScenario()
+        {
+            WebDriver.CleanUp();
+        }
+  
 
         [Test]
-        public void Tc01()
+        public void TC01_FillInputWithValidData_ShouldAllDataDisplayedInInput()
         {
-            Login("standard_user", "secret_sauce");
-            _homePage.Username.SendKeys("standard_user");
-            _homePage.Password.SendKeys("secret_sauce");
-            _homePage.Login.Submit();
+            
+            loginPage.Username.SendKeys("standard_user");
+            loginPage.Password.SendKeys("secret_sauce");
+            loginPage.Login.Submit();
+        }
+
+        [Test]
+        public void TC02()
+        {
+            loginPage.Username.SendKeys("standard_user");
+            loginPage.Password.SendKeys("secret_sauce");
+            loginPage.Login.Submit();
+
+            homePage.Photo.Click();
+            homePage.BackPack.Click();
+            homePage.BackToProduct.Click();
         }
 
         public void Login(string name, string password)
         {
-            _loginPage.LoginOnPage(name, password);
+            loginPage.LoginOnPage(name, password);
         }
+        
     }
 }
