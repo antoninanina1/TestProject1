@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using WebDriver = TestProject1.Driver.WebDriver;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace TestProject1.Page
 {
    public class LoginPage
     {
-        private IWebElement driver = WebDriver.instance();
+        private IWebDriver driver = WebDriver.Instance;
 
         public IWebElement Username => driver.FindElement(By.Id("user-name"));
 
@@ -17,11 +18,13 @@ namespace TestProject1.Page
 
         public IWebElement Login => driver.FindElement(By.Id("login-button"));
 
+        
+
         public void LoginOnPage(string name, string password)
         {
             Username.SendKeys(name);
             Password.SendKeys(password);
-            Login.Submit();
+            Login.Submit(); 
         }
     }
 

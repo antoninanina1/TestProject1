@@ -10,7 +10,7 @@ namespace TestProject1.Driver
 {
     public static class WebDriver
     {
-        public static IWebDriver? Instance { get; set; }
+        public static IWebDriver? Instance { get; set; }    
 
         public static void Initialize()
         {
@@ -18,13 +18,11 @@ namespace TestProject1.Driver
             Instance.Manage().Window.Maximize();
             Instance.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(10);
             Instance.Navigate().GoToUrl("https://www.saucedemo.com/");
-            
         }
 
-        public static void CleanUp()
+         public static void CleanUp()
         {
             Instance?.Quit();
         }
-
     }
 }
